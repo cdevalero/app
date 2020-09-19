@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} - CdeValero</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        
+        {% comment %}
+            Este trozo de codigo define una navbar resposive
+        {% endcomment %}
+            
+        <a class="navbar-brand" href="/">CdeValero</a>
+        <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#myNavbar" 
+            aria-controls="myNavbar"
+            aria-expanded="true" 
+            aria-label="Toggle navigation"   
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="myNavbar">
+            
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a href="{% url 'blog' %}" class="nav-link">Blog</a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">               
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Hola {{user.username}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'salir' %}" class="nav-link">Cerrar</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'acceder' %}">Acceder</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'registro' %}">Registro</a>
+                    </li>
+                {% endif %}                   
+            </ul>
+
+        </div>
+    </nav>
+
+    <div class="container mt-3">
+        
+        {% if messages %}
+            <div class="row mt-3 mb-3">
+                <div class="col-12">                    
+                    {% for message in messages  %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}                       
+                </div>
+            </div>           
+        {% endif %}
+            
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src=" {% static 'js/jquery-slim.min.js' %}"></script>
+    <script src=" {% static 'js/popper.min.js' %}"></script>
+    <script src=" {% static 'js/bootstrap.min.js' %}"></script>
+
+</body>
+</html>

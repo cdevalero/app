@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Blog
+{% endblock title %}
+
+
+{% block content %}
+
+    <div class="mt-3">
+        <div class="row mb-3">
+            <div class="col-3 offset-9">
+                <a href="{% url 'crear_post' %}" class="btn btn-primary float-right">Nuevo post</a>
+            </div>
+        </div>
+        
+        {% if posts %}
+            {% for post in posts %}
+            
+            {% if forloop.first %}
+                <div class="row">
+            {% endif %}
+                
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{post.titulo}}</h5>
+                            <hr>
+                            <h6 class="card-subtitle">{{post.autor.username}}</h6>
+                            <p class="card-text">Categoria: {{post.categoria}}</p>
+                        </div>
+                        
+                        {% if user == post.autor %}
+                            <div class="card-footer">
+                                <a href="{% url 'eliminar_post' post.id %}" class="btn btn-danger">Eliminar</a>
+                            </div>
+                        {% endif %}
+                            
+                    </div>
+                </div>
+
+            {% if forloop.counter|divisibleby:3 %}
+                </div><br><div class="row">
+            {% endif %}
+
+            {% if forloop.last %}
+                </div>
+            {% endif %}
+
+            {% endfor %}
+
+            {% include 'paginacion.html' %}
+
+        {% else %}
+            <div class="alert alert-danger">No Hay nada aqui</div>
+        {% endif %}
+            
+    </div>
+    
+{% endblock content %}
