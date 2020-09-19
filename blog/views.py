@@ -59,8 +59,23 @@ def testform(request):
     
     # accion GET
     form = FormTest()
-    return render(request, 'testform.html', {'form': form})
+    return render(request, 'test/testform.html', {'form': form})
 
+def show_form(request):
+    test_list = Test.objects.all()
+    return render(request, 'test/show.html', {'test_list': test_list})
+
+def borrar_test(request, test_id):
+    try:
+        test = Test.objects.get(pk=test_id)
+    except test.DoesNotExist:
+        messages.error(request, 'El test no existe')
+        return redirect('show_form')
+    test.delete()
+    return redirect('show_form')
+
+def alter_test(request, test_id):
+    pass
 
 
 

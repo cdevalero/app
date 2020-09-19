@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Test Form
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    
+    {% if test_list %}
+        
+        {% for test in test_list %}
+        <div class="d-flex justify-content-center">
+            <div class="card col-6">
+                <div class="card-body">
+                    <div class="d-flex justify-content-start">
+                        <h3>{{test.name}}</h3>
+                    </div> 
+                    <div class="d-flex justify-content-end">
+                        <a href="{% url 'borrar_test' test.id %}" class="btn btn-danger">Borrar</a>
+                        <a href="{% url 'alter_test' test.id %}" class="btn btn-warning offset-1">Alter</a>
+                    </div>
+                </div>                
+            </div>
+        </div>
+            <br>
+        {% endfor %}
+            
+    {% endif %}
+        
+{% endblock content %}
