@@ -7,6 +7,7 @@ urlpatterns = [
     path('post/crear/',crear_post, name="crear_post"),
     # pasamos un parametro tipo int llamado post_id
     path('post/eliminar/<int:post_id>',eliminar_post, name="eliminar_post"),
+    path('testform/',testform, name="testform")
 ]
 
 

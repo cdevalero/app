@@ -46,6 +46,10 @@ def crear_post(request):
     form = FormularioPost()
     return render(request, 'crear_post.html', {'form': form})
 
+def testform(request):
+    form = FormTest()
+    return render(request, 'testform.html', {'form':form})
+
 @login_required(login_url="cuentas/acceder/")
 def eliminar_post(request, post_id):
     try:
