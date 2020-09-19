@@ -35,3 +35,21 @@ class post(models.Model):
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         ordering = ['id']
+
+class Test(models.Model):
+    # Definicion de los parametros de las columnas de la tabla
+    name = models.CharField(max_length=100, null=False, unique=True, verbose_name='Name')
+
+    # Definicion de que queremos que se retorne cuando se llame a Test en fron, en este caso un sting
+    def __str__(self):
+        return self.name
+
+    # Definicion de de los Meta-datos de la tabla en BD
+    class Meta:
+        # nombre de la tabal
+        db_table = 'formtest'
+        # nombres para la vista de admin
+        verbose_name = 'Formtest'
+        verbose_name_plural = 'Formtests'
+        # orden de vizualizacion (para migraciones)
+        ordering = ['id']

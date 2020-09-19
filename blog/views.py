@@ -46,9 +46,24 @@ def crear_post(request):
     form = FormularioPost()
     return render(request, 'crear_post.html', {'form': form})
 
+
+
+
 def testform(request):
+    # accion POST
+    if request.method == 'POST':
+        form = FormTest(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('testform')
+    
+    # accion GET
     form = FormTest()
-    return render(request, 'testform.html', {'form':form})
+    return render(request, 'testform.html', {'form': form})
+
+
+
+
 
 @login_required(login_url="cuentas/acceder/")
 def eliminar_post(request, post_id):
