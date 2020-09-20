@@ -75,7 +75,21 @@ def borrar_test(request, test_id):
     return redirect('show_form')
 
 def alter_test(request, test_id):
-    pass
+    try:
+        test = Test.objects.get(pk=test_id)
+    except test.DoesNotExist:
+        messages.error(request, 'El test no existe')
+        return redirect('show_form')
+    
+    if request.method == 'POST':
+        form = FormTest(request.POST, instance=test)
+        if form.is_valid():
+            form.save()
+            return redirect('show_form')
+    
+    form_test = FormTest(instance = test)
+    return render(request, 'test/testform.html', {'form':form_test})
+
 
 
 

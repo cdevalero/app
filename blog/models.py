@@ -19,6 +19,7 @@ class categoria(models.Model):
         ordering = ['id']
 
 class post(models.Model):
+    # id = models.AutoField(primary_key = True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     categoria = models.ForeignKey(categoria, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=100, unique=True, null=False, verbose_name='Titulo')
